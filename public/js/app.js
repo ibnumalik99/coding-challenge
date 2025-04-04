@@ -7888,7 +7888,10 @@ var render = function () {
                       _c("td", { staticClass: "px-6 py-4" }, [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(employee.remuneration) +
+                            _vm._s(
+                              (employee.pivot.hours / _vm.record.hours_spent) *
+                                _vm.record.total_remunation
+                            ) +
                             "\n                        "
                         ),
                       ]),

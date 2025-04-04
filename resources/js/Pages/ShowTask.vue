@@ -53,7 +53,7 @@
                                 {{ employee.pivot.hours }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ employee.remuneration }}
+                                {{ (employee.pivot.hours/record.hours_spent) * record.total_remunation }}
                             </td>
                         </tr>
                     </tbody>

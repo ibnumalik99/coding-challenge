@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('task_id')->constrained()->onDelete('cascade');
             $table->float('hours', 8, 2);
-            $table->float('remuneration', 8, 2);
             $table->timestamps();
         });
     }

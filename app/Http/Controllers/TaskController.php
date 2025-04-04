@@ -42,15 +42,15 @@ class TaskController extends Controller
                 'hourly_rate' => $request->hourly_rate,
                 'addtional_charges' => $request->addtional_charges,
                 'description' => $request->description,
-                'total_remunation' => ($request->hours_spent * $request->hourly_rate) + $request->addtional_charges
+                'total_remunation' => $request->hours_spent * $request->hourly_rate + $request->addtional_charges
             ]);
+
     
             foreach($request->employee_task as $item) {
                 EmployeeTask::create([
                     'task_id' => $task->id,
                     'employee_id' => $item['employeeId'],
                     'hours' => $item['hours'],
-                    'remuneration' => ($item['hours']/$request->hours_spent) * $task->total_remunation
                 ]);
             }
             DB::commit();
@@ -67,7 +67,7 @@ class TaskController extends Controller
     {
         $data = Task::where('id', $id)
             ->with(['employees' => function ($query) {
-                $query->select('employees.id', 'employees.name', 'employee_tasks.hours', 'employee_tasks.remuneration');
+                $query->select('employees.id', 'employees.name', 'employee_tasks.hours');
             }])
             ->first();
         return view('auth.show-task', compact('data'));
@@ -101,6 +101,7 @@ class TaskController extends Controller
             'hourly_rate' => $request->hourly_rate,
             'addtional_charges' => $request->addtional_charges,
             'description' => $request->description,
+            'total_remunation' => $request->hours_spent * $request->hourly_rate + $request->addtional_charges
         ]);
 
         // Simpan relasi employees ke task
